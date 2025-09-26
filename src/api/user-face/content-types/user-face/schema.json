@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_faces",
+  "info": {
+    "singularName": "user-face",
+    "pluralName": "user-faces",
+    "displayName": "User Face"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "embedded": {
+      "type": "text"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user_faces"
+    }
+  }
+}
