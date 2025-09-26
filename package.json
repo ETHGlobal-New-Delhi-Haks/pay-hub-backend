@@ -16,6 +16,9 @@
     "@strapi/plugin-i18n": "4.13.1",
     "pg": "8.8.0"
   },
+  "resolutions": {
+    "minimatch": "9.0.5"
+  },
   "author": {
     "name": "A Strapi developer"
   },
