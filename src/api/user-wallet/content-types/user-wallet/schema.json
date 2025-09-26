@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_wallets",
+  "info": {
+    "singularName": "user-wallet",
+    "pluralName": "user-wallets",
+    "displayName": "User Wallet",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "address": {
+      "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user_wallets"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "evm",
+        "solana",
+        "flow"
+      ]
+    }
+  }
+}

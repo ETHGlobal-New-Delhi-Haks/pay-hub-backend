@@ -4,7 +4,8 @@
   "info": {
     "singularName": "user-face",
     "pluralName": "user-faces",
-    "displayName": "User Face"
+    "displayName": "User Face",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -14,7 +15,7 @@
     "embedded": {
       "type": "text"
     },
-    "users_permissions_user": {
+    "user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",

@@ -66,11 +66,17 @@
       "inversedBy": "users",
       "configurable": false
     },
+    "user_wallets": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::user-wallet.user-wallet",
+      "mappedBy": "user"
+    },
     "user_faces": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::user-face.user-face",
-      "mappedBy": "users_permissions_user"
+      "mappedBy": "user"
     }
   }
 }

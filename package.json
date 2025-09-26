@@ -11,11 +11,14 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "@solana/web3.js": "^1.98.4",
     "@strapi/plugin-i18n": "4.13.1",
     "@strapi/plugin-users-permissions": "4.13.1",
     "@strapi/strapi": "4.13.1",
     "axios": "^1.12.2",
-    "pg": "8.8.0"
+    "pg": "8.8.0",
+    "web3": "1.10.1-rc.0",
+    "web3-utils": "1.10.1-rc.0"
   },
   "resolutions": {
     "minimatch": "9.0.5"
