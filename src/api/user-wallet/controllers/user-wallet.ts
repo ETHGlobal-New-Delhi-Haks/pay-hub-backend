@@ -97,9 +97,22 @@ export default factories.createCoreController('api::user-wallet.user-wallet', ({
         }
 
         tokensArray.sort((a, b) => {
-          const balanceA = parseFloat(a.balance) || 0;
-          const balanceB = parseFloat(b.balance) || 0;
-          return balanceB - balanceA;
+          // Рассчитываем реальный баланс и USD эквивалент для токена A
+          const balanceWeiA = parseFloat(a.balance) || 0;
+          const decimalsA = parseInt(a.data?.decimals) || 18;
+          const realBalanceA = balanceWeiA / Math.pow(10, decimalsA);
+          const priceA = parseFloat(a.data?.priceUSD) || 0;
+          const valueA = realBalanceA * priceA;
+
+          // Рассчитываем реальный баланс и USD эквивалент для токена B
+          const balanceWeiB = parseFloat(b.balance) || 0;
+          const decimalsB = parseInt(b.data?.decimals) || 18;
+          const realBalanceB = balanceWeiB / Math.pow(10, decimalsB);
+          const priceB = parseFloat(b.data?.priceUSD) || 0;
+          const valueB = realBalanceB * priceB;
+
+          // Сортируем по убыванию USD стоимости
+          return valueB - valueA;
         });
 
         data[network] = {};
