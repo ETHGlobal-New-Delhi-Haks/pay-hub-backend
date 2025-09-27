@@ -10,6 +10,15 @@ module.exports = {
       }
     },
     {
+      method: 'GET',
+      path: '/wallets/balances',
+      handler: 'api::user-wallet.user-wallet.getBalances',
+      config: {
+        policies: [],
+        description: '',
+      }
+    },
+    {
       method: 'POST',
       path: '/wallets/add',
       handler: 'api::user-wallet.user-wallet.addWallet',

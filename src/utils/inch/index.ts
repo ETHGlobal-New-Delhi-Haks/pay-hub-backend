@@ -76,10 +76,40 @@ export class Inch {
     this.rateLimiter = new OneInchRateLimiter();
   }
 
+  async loadTokensFromUser(type: string, walletAddress: string) {
+    const balances = {};
+
+    switch (type) {
+      case 'evm':
+        balances['0'] = await this.loadTokens(1, walletAddress);
+        balances['137'] = await this.loadTokens(137, walletAddress);
+        balances['42161'] = await this.loadTokens(42161, walletAddress);
+        break;
+      case 'solana':
+        balances['501'] = await this.loadTokens(501, walletAddress);
+    }
+
+    return balances;
+  }
+
   async loadTokens(chain: number, walletAddress: string) {
     return await this.rateLimiter.enqueue(async () => {
       try {
         const { data } = await this.client.get(`/balance/v1.2/${chain}/balances/${walletAddress}`);
+
+        return data;
+
+      } catch (error) {
+        console.error('Error getting tokens by address:', error.response?.data || error.message);
+        throw error;
+      }
+    })
+  }
+
+  async loadInfoAboutTokens(chain: number) {
+    return await this.rateLimiter.enqueue(async () => {
+      try {
+        const { data } = await this.client.get(`/token/v1.2/${chain}/token-list`);
 
         return data;
 

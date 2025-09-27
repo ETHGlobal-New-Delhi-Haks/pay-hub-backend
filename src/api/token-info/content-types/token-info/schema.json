@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "token_infos",
+  "info": {
+    "singularName": "token-info",
+    "pluralName": "token-infos",
+    "displayName": "Token Info"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "address": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "decimals": {
+      "type": "integer"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "logoURI": {
+      "type": "string"
+    },
+    "blockchain": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::blockchain.blockchain",
+      "inversedBy": "token_infos"
+    }
+  }
+}

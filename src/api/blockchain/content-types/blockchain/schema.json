@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "blockchains",
+  "info": {
+    "singularName": "blockchain",
+    "pluralName": "blockchains",
+    "displayName": "Blockchain"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "chain": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "token_infos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::token-info.token-info",
+      "mappedBy": "blockchain"
+    }
+  }
+}

@@ -67,5 +67,22 @@ export default factories.createCoreController('api::user-wallet.user-wallet', ({
     })
 
     return this.transformResponse(results, {pagination});
+  },
+
+  async getBalances(ctx) {
+    const user = ctx.state.user;
+
+    const wallets = await strapi.db.query('api::user-wallet.user-wallet').findMany({
+        where: {
+          user: user.id
+        }
+    });
+
+    const balances = {};
+    for (const wallet of wallets) {
+      balances[wallet.address] = await strapi.$inch.loadTokensFromUser(wallet.type , wallet.address)
+    }
+
+    return balances;
   }
 }));
