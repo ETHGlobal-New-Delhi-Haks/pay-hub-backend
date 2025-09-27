@@ -119,4 +119,21 @@ export class Inch {
       }
     })
   }
+
+  async loadTokenPrice(chain: number, addresses: string[]) {
+    return await this.rateLimiter.enqueue(async () => {
+      try {
+        const { data } = await this.client.post(`/price/v1.1/${chain}`, {
+          tokens: addresses,
+          currency: "USD"
+        });
+
+        return data;
+
+      } catch (error) {
+        console.error('Error getting tokens by address:', error.response?.data || error.message);
+        throw error;
+      }
+    })
+  }
 }

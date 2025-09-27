@@ -4,7 +4,8 @@
   "info": {
     "singularName": "token-info",
     "pluralName": "token-infos",
-    "displayName": "Token Info"
+    "displayName": "Token Info",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -31,6 +32,9 @@
       "relation": "manyToOne",
       "target": "api::blockchain.blockchain",
       "inversedBy": "token_infos"
+    },
+    "priceUSD": {
+      "type": "float"
     }
   }
 }
