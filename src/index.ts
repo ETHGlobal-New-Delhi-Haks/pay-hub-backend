@@ -1,4 +1,5 @@
 import {Inch} from "./utils/inch";
+import {reloadTokenState} from "../database/memory-cache";
 
 export default {
   /**
@@ -16,7 +17,8 @@ export default {
    * This gives you an opportunity to set up your data model,
    * run jobs, or perform some special logic.
    */
-  bootstrap({ strapi }) {
+  async bootstrap({ strapi }) {
     strapi.$inch = new Inch(strapi);
+    await reloadTokenState({ strapi })
   },
 };

@@ -6,6 +6,7 @@ import {factories} from '@strapi/strapi'
 import {isValidEVMAddress} from "../../../utils/validation/wallet/evm";
 import {isValidSolanaAddress} from "../../../utils/validation/wallet/solana";
 import {isValidFlowAddress} from "../../../utils/validation/wallet/flow";
+import {tokensState} from "../../../../database/memory-cache";
 
 export default factories.createCoreController('api::user-wallet.user-wallet', ({strapi}) => ({
   async addWallet(ctx) {
@@ -80,7 +81,19 @@ export default factories.createCoreController('api::user-wallet.user-wallet', ({
 
     const balances = {};
     for (const wallet of wallets) {
-      balances[wallet.address] = await strapi.$inch.loadTokensFromUser(wallet.type , wallet.address)
+     // balances[wallet.address] = await strapi.$inch.loadTokensFromUser(wallet.type , wallet.address)
+      const data = await strapi.$inch.loadTokensFromUser(wallet.type , wallet.address);
+      for (const network in data) {
+        for (const tokenAddress in data[network]) {
+          data[network][tokenAddress] = {
+            balance: data[network][tokenAddress],
+            data: {
+              ...tokensState.tokens.get(`${network}_${tokenAddress}`),
+            }
+          }
+        }
+        balances[wallet.address] = data
+      }
     }
 
     return balances;
