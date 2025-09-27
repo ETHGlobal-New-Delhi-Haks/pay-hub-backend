@@ -81,7 +81,7 @@ export class Inch {
 
     switch (type) {
       case 'evm':
-        balances['0'] = await this.loadTokens(1, walletAddress);
+        balances['1'] = await this.loadTokens(1, walletAddress);
         balances['137'] = await this.loadTokens(137, walletAddress);
         balances['42161'] = await this.loadTokens(42161, walletAddress);
         break;
