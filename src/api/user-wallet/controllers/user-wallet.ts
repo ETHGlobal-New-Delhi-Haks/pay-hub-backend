@@ -81,19 +81,37 @@ export default factories.createCoreController('api::user-wallet.user-wallet', ({
 
     const balances = {};
     for (const wallet of wallets) {
-     // balances[wallet.address] = await strapi.$inch.loadTokensFromUser(wallet.type , wallet.address)
-      const data = await strapi.$inch.loadTokensFromUser(wallet.type , wallet.address);
+      const data = await strapi.$inch.loadTokensFromUser(wallet.type, wallet.address);
+
       for (const network in data) {
+        const tokensArray = [];
+
         for (const tokenAddress in data[network]) {
-          data[network][tokenAddress] = {
+          tokensArray.push({
+            tokenAddress,
             balance: data[network][tokenAddress],
             data: {
               ...tokensState.tokens.get(`${network}_${tokenAddress}`),
             }
-          }
+          });
         }
-        balances[wallet.address] = data
+
+        tokensArray.sort((a, b) => {
+          const balanceA = parseFloat(a.balance) || 0;
+          const balanceB = parseFloat(b.balance) || 0;
+          return balanceB - balanceA;
+        });
+
+        data[network] = {};
+        tokensArray.forEach(token => {
+          data[network][token.tokenAddress] = {
+            balance: token.balance,
+            data: token.data
+          };
+        });
       }
+
+      balances[wallet.address] = data;
     }
 
     return balances;
